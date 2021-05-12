@@ -16,12 +16,5 @@ module.exports = {
   ],
   plugins: ['cypress'],
   // add your custom rules here
-  rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
-  },
+  rules: {},
 };
