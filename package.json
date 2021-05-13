@@ -15,9 +15,11 @@
     "cypress:ci": "cypress run --record --parallel"
   },
   "dependencies": {
+    "@nuxtjs/auth-next": "5.0.0-1620773067.c356fed",
     "@nuxtjs/axios": "^5.13.1",
     "@nuxtjs/pwa": "^3.3.5",
     "core-js": "^3.9.1",
+    "jsonwebtoken": "^8.5.1",
     "nuxt": "^2.15.3"
   },
   "devDependencies": {

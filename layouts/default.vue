@@ -80,6 +80,11 @@ export default {
           title: 'Inspire',
           to: '/inspire',
         },
+        {
+          icon: 'mdi-lock',
+          title: 'Login',
+          to: '/login',
+        },
       ],
       miniVariant: false,
       right: true,

@@ -10,6 +10,16 @@
           </small>
         </footer>
       </blockquote>
+      <v-btn @click="Logout()">Logout</v-btn>
     </v-col>
   </v-row>
 </template>
+<script>
+export default {
+  methods: {
+    Logout() {
+      this.$auth.logout('github');
+    },
+  },
+};
+</script>
