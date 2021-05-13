@@ -36,6 +36,7 @@ jobs:
   cypress:
     docker:
       - image: cypress/base:latest
+    parallelism: 3
     steps:
       - attach_workspace:
           at: .
@@ -44,7 +45,7 @@ jobs:
             - node-v3-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: run E2E tests with cypress
-          command:  npm run test:e2e
+          command:  npm run test:ci
       - store_test_results:
           path: cypress/results
       - store_artifacts:
