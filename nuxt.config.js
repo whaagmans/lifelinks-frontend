@@ -56,6 +56,9 @@ export default {
   // Auth module configuration: https://auth.nuxtjs.org
   auth: {
     strategies: {
+      local: {
+        scheme: 'local',
+      },
       github: {
         clientId: '0edb7e3b253d264d61a6',
         clientSecret: '8b87c2c0a9bc73093858d9d91a2e8700845462ee',
