@@ -57,7 +57,17 @@ export default {
   auth: {
     strategies: {
       local: {
-        scheme: 'local',
+        token: {
+          property: 'token',
+        },
+        user: {
+          property: 'user',
+        },
+        endpoints: {
+          login: { url: '/api/account/signin', method: 'post' },
+          logout: { url: '/api/account/logout', method: 'post' },
+          token: { url: '/connect/token', method: 'post' },
+        },
       },
       github: {
         clientId: '0edb7e3b253d264d61a6',
