@@ -29,7 +29,7 @@
         color="primary"
         class="mb-5"
         :loading="loading"
-        @click="submit"
+        @click="login"
         >Sign in</v-btn
       >
     </div>
@@ -62,8 +62,23 @@ export default {
           .then((data) => {
             localStorage.jwt_token = data.data.access_token;
           })
-          .finally((this.loading = false));
+          .finally(() => (this.loading = false));
         this.$router.push('explore');
+      }
+    },
+    async login() {
+      if (this.$refs.form.validate()) {
+        this.loading = true;
+        await this.$auth
+          .loginWith('identityServer', {
+            username: this.username,
+            password: this.password,
+            rememberLogin: false,
+          })
+          .then(() => {
+            this.loading = false;
+            this.$toast.success('Logged In !');
+          });
       }
     },
   },

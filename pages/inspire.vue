@@ -18,7 +18,7 @@
 export default {
   methods: {
     Logout() {
-      this.$auth.logout('github');
+      this.$auth.logout('identityServer');
     },
   },
 };
