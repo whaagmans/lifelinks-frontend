@@ -47,26 +47,52 @@ export default {
     '@nuxtjs/pwa',
     // https://auth.nuxtjs.org
     '@nuxtjs/auth-next',
+    // https://nuxtjs.org/docs/2.x/configuration-glossary/configuration-env/
+    '@nuxtjs/dotenv',
+    // https://www.npmjs.com/package/@nuxtjs/toast
+    '@nuxtjs/toast',
   ],
 
   router: {
     middleware: ['auth'],
   },
 
+  toast: {
+    position: 'bottom-center',
+    duration: 5000,
+  },
+
   // Auth module configuration: https://auth.nuxtjs.org
   auth: {
     strategies: {
-      local: {
+      identityServer: {
+        scheme: '~/schemes/IdentityServerScheme',
         token: {
           property: 'token',
         },
-        user: {
-          property: 'user',
-        },
         endpoints: {
-          login: { url: '/api/account/signin', method: 'post' },
-          logout: { url: '/api/account/logout', method: 'post' },
-          token: { url: '/connect/token', method: 'post' },
+          login: {
+            url: process.env.BASE_URL + '/api/account/signin',
+            method: 'post',
+          },
+          logout: {
+            url: process.env.BASE_URL + '/api/account/signout',
+            method: 'post',
+          },
+          token: {
+            url: process.env.BASE_URL + '/connect/token',
+            method: 'post',
+          },
+          user: {
+            url: process.env.BASE_URL + '/connect/userinfo',
+            method: 'post',
+          },
+        },
+        redirect: {
+          login: '/login',
+          logout: '/',
+          callback: '/login',
+          home: '/explore',
         },
       },
       github: {
@@ -77,7 +103,9 @@ export default {
   },
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
-  axios: {},
+  axios: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000',
+  },
 
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
