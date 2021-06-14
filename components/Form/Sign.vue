@@ -32,6 +32,15 @@
         @click="login"
         >Sign in</v-btn
       >
+      <v-btn
+        id="btnSignInGithub"
+        large
+        prepend-icon="mdi-lock"
+        color="primary"
+        class="mb-5"
+        @click="GithubLogin()"
+        ><v-icon large>mdi-github</v-icon></v-btn
+      >
     </div>
   </div>
 </template>
@@ -62,6 +71,9 @@ export default {
             this.$toast.success('Logged In !');
           });
       }
+    },
+    GithubLogin() {
+      this.$auth.loginWith('github');
     },
   },
 };

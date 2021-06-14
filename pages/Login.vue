@@ -34,18 +34,17 @@
             </v-layout>
             <v-expand-transition>
               <v-card-text class="mt-12">
-                <v-scroll-y-transition hide-on-leave>
-                  <FormLoginForm v-show="SignIn" />
-                </v-scroll-y-transition>
-                <v-scroll-y-transition hide-on-leave>
-                  <FormRegisterForm
+                <v-expand-transition leave-absolute>
+                  <LazyFormSign v-show="SignIn" />
+                </v-expand-transition>
+                <v-expand-transition leave-absolute>
+                  <LazyFormRegister
                     v-show="!SignIn"
                     @accountCreated="SelectSignIn"
                   />
-                </v-scroll-y-transition>
+                </v-expand-transition>
               </v-card-text>
             </v-expand-transition>
-            <v-btn @click="GithubLogin()">Login With GitHub</v-btn>
           </v-card>
         </v-col>
       </v-row>
@@ -73,9 +72,6 @@ export default {
       if (this.SignIn !== false) {
         this.SignIn = false;
       }
-    },
-    GithubLogin() {
-      this.$auth.loginWith('github');
     },
   },
 };
