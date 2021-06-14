@@ -57,7 +57,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   data() {
     return {
@@ -91,14 +90,14 @@ export default {
     submit() {
       if (this.$refs.form.validate()) {
         this.loading = true;
-        axios
-          .post('https://api.lifelinks.nl/api/account/register', {
+        this.$axios
+          .$post('/api/account/register', {
             username: this.registerUsername,
             email: this.registerEmail,
             password: this.registerPassword,
             confirmpassword: this.registerPasswordConfirm,
           })
-          .then((this.loading = false))
+          .then(() => (this.loading = false))
           .finally(() => {
             this.$emit('accountCreated');
           });

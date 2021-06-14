@@ -3,7 +3,7 @@
     <v-container>
       <v-flex>
         <v-row class="my-5">
-          <MessagePopup @MessagePosted="snackbar = true" />
+          <PopupMessagePopup @MessagePosted="snackbar = true" />
         </v-row>
         <v-row class="mb-5">
           <v-btn x-large color="primary" class="darken-1" :min-width="btnWidth"
@@ -25,11 +25,7 @@
 </template>
 
 <script>
-import MessagePopup from '@/components/Popup/MessagePopup.vue';
 export default {
-  components: {
-    MessagePopup,
-  },
   data() {
     return {
       snackbar: false,

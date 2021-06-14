@@ -9,16 +9,7 @@
 </template>
 
 <script>
-import Explore from '@/components/Explore.vue';
-import FriendsList from '@/components/FriendsList.vue';
-import Menu from '@/components/Menu.vue';
-export default {
-  components: {
-    Explore,
-    FriendsList,
-    Menu,
-  },
-};
+export default {};
 </script>
 
 <style></style>
