@@ -81,10 +81,11 @@
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue';
-import VuetifyLogo from '~/components/VuetifyLogo.vue';
+const Logo = () => import('@/components/Logo.vue');
+const VuetifyLogo = () => import('@/components/VuetifyLogo.vue');
 
 export default {
+  auth: false,
   components: {
     Logo,
     VuetifyLogo,

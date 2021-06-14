@@ -11,40 +11,40 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-            - node-v3-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: Install dependencies
-          command: npm ci
+          command: yarn install --immutable
       - run:
           name: build nuxt project
-          command: npm run build
+          command: yarn build
       - persist_to_workspace:
           root: .
           paths:
             - '*'
       - save_cache:
-          key: node-v3-{{ .Branch }}-{{ checksum "package-lock.json" }}
+          key: yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
           paths:
-            - ~/.npm
-            - ~/.cache
+            - ~/.cache/yarn
             - ~/node_modules
             - ~/.nuxt/dist
       - run:
           name: Run linter
-          command: npm run lint
+          command:  yarn lint
   
   cypress:
     docker:
       - image: cypress/base:latest
+    parallelism: 3
     steps:
       - attach_workspace:
           at: .
       - restore_cache:
           keys:
-            - node-v3-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - yarn-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
       - run:
           name: run E2E tests with cypress
-          command:  npm run test:e2e
+          command:  yarn test:ci
       - store_test_results:
           path: cypress/results
       - store_artifacts:
