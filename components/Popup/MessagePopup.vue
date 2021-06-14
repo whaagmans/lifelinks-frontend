@@ -60,7 +60,10 @@ export default {
   methods: {
     submit() {
       if (this.$refs.messageForm.validate()) {
-        const token = jwt.decode(this.$auth.strategy.token.get());
+        const extractedToken = this.$auth.strategy.token
+          .get('identityServer')
+          .split(' ');
+        const token = jwt.decode(extractedToken[1]);
         this.$axios
           .$post('/api/post', {
             userId: token.sub,

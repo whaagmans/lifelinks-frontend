@@ -45,28 +45,20 @@ export default {
       posts: [],
     };
   },
-  // mounted() {
-  //   this.$axios.$get('https://api.lifelinks.nl/api/post').then((data) => {
-  //     const posts = data.data;
-  //     posts.forEach((post) => {
-  //       this.posts.push(post);
-  //     });
-  //   });
-  // },
+  mounted() {
+    this.$axios.$get('/api/post').then((data) => {
+      const posts = data.data;
+      posts.forEach((post) => {
+        this.posts.push(post);
+      });
+    });
+  },
   methods: {
     addHeart(post) {
       this.$axios
-        .$put(
-          '/api/post/likes',
-          {
-            id: post.id,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.jwt_token}`,
-            },
-          }
-        )
+        .$put('/api/post/likes', {
+          id: post.id,
+        })
         .then(post.likes++);
     },
   },

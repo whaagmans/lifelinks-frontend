@@ -35,10 +35,10 @@
             <v-expand-transition>
               <v-card-text class="mt-12">
                 <v-expand-transition leave-absolute>
-                  <LazyFormSign v-show="SignIn" />
+                  <FormSign v-show="SignIn" />
                 </v-expand-transition>
                 <v-expand-transition leave-absolute>
-                  <LazyFormRegister
+                  <FormRegister
                     v-show="!SignIn"
                     @accountCreated="SelectSignIn"
                   />
