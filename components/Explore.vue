@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 export default {
   components: {},
   data() {
@@ -46,19 +45,19 @@ export default {
       posts: [],
     };
   },
-  mounted() {
-    this.$axios.$get('https://api.lifelinks.nl/api/post').then((data) => {
-      const posts = data.data;
-      posts.forEach((post) => {
-        this.posts.push(post);
-      });
-    });
-  },
+  // mounted() {
+  //   this.$axios.$get('https://api.lifelinks.nl/api/post').then((data) => {
+  //     const posts = data.data;
+  //     posts.forEach((post) => {
+  //       this.posts.push(post);
+  //     });
+  //   });
+  // },
   methods: {
     addHeart(post) {
-      axios
-        .put(
-          'https://api.lifelinks.nl/api/post/likes',
+      this.$axios
+        .$put(
+          '/api/post/likes',
           {
             id: post.id,
           },

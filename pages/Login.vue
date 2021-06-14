@@ -35,17 +35,17 @@
             <v-expand-transition>
               <v-card-text class="mt-12">
                 <v-scroll-y-transition hide-on-leave>
-                  <LoginForm v-show="SignIn" />
+                  <FormLoginForm v-show="SignIn" />
                 </v-scroll-y-transition>
                 <v-scroll-y-transition hide-on-leave>
-                  <RegisterForm
+                  <FormRegisterForm
                     v-show="!SignIn"
-                    @accountCreated="SelectSignIn()"
+                    @accountCreated="SelectSignIn"
                   />
                 </v-scroll-y-transition>
               </v-card-text>
             </v-expand-transition>
-            <v-btn @click="DiscordLogin()">Discrod</v-btn>
+            <v-btn @click="GithubLogin()">Login With GitHub</v-btn>
           </v-card>
         </v-col>
       </v-row>
@@ -58,14 +58,7 @@
 </template>
 
 <script>
-const LoginForm = () => import('@/components/Form/SignForm');
-const RegisterForm = () => import('@/components/Form/RegisterForm');
-
 export default {
-  components: {
-    LoginForm,
-    RegisterForm,
-  },
   data: () => ({
     SignIn: true,
     snackbar: false,
@@ -77,12 +70,11 @@ export default {
       }
     },
     SelectRegister() {
-      this.snackbar = true;
       if (this.SignIn !== false) {
         this.SignIn = false;
       }
     },
-    DiscordLogin() {
+    GithubLogin() {
       this.$auth.loginWith('github');
     },
   },

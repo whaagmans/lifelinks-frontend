@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import axios from 'axios';
 const jwt = require('jsonwebtoken');
 export default {
   data() {
@@ -61,21 +60,13 @@ export default {
   methods: {
     submit() {
       if (this.$refs.messageForm.validate()) {
-        const token = jwt.decode(localStorage.jwt_token);
-        axios
-          .post(
-            'https://api.lifelinks.nl/api/post',
-            {
-              userId: token.sub,
-              username: token.preferred_username,
-              postContent: this.content,
-            },
-            {
-              headers: {
-                Authorization: `Bearer ${localStorage.jwt_token}`,
-              },
-            }
-          )
+        const token = jwt.decode(this.$auth.strategy.token.get());
+        this.$axios
+          .$post('/api/post', {
+            userId: token.sub,
+            username: token.preferred_username,
+            postContent: this.content,
+          })
           .then(() => {
             this.$emit('MessagePosted');
             this.newMessageDialog = false;
