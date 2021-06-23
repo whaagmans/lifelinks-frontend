@@ -41,7 +41,7 @@ jobs:
           at: .
       - restore_cache:
           keys:
-            - yarn-packages-{{ .Branch }}-{{ checksum "package-lock.json" }}
+            - yarn-packages-{{ .Branch }}-{{ checksum "yarn.lock" }}
       - run:
           name: run E2E tests with cypress
           command:  yarn test:ci
