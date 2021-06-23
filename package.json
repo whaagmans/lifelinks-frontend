@@ -11,7 +11,7 @@
     "lint:js": "eslint --ext \".js,.vue\" --fix --ignore-path .gitignore .",
     "lint": "npm run lint:js",
     "test:e2e": "start-server-and-test start http://localhost:3000 cypress:run",
-    "test:ci": "start-server-and-test start http://localhost:3000 cypress:ci",
+    "test:ci": " start-server-and-test start http://localhost:3000 cypress:ci",
     "cypress:run": "cypress run",
     "cypress:ci": "cypress run --record --parallel"
   },
