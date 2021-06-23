@@ -1,6 +1,9 @@
 <template>
   <div class="explore">
     <v-container class="my-5">
+      <v-btn fab color="primary" class="mb-5" @click="refreshPosts"
+        ><v-icon>mdi-refresh</v-icon></v-btn
+      >
       <v-flex v-for="post in posts" :key="post.id">
         <v-row justify="center" class="mb-12">
           <v-card flat class="text-left" width="600px">
@@ -46,12 +49,7 @@ export default {
     };
   },
   mounted() {
-    this.$axios.$get('/api/post').then((data) => {
-      const posts = data.data;
-      posts.forEach((post) => {
-        this.posts.push(post);
-      });
-    });
+    this.fetchPosts();
   },
   methods: {
     addHeart(post) {
@@ -60,6 +58,25 @@ export default {
           id: post.id,
         })
         .then(post.likes++);
+    },
+    async fetchPosts() {
+      await this.$axios.$get('/api/post').then((data) => {
+        const posts = data;
+        posts.forEach((post) => {
+          this.posts.push(post);
+        });
+      });
+    },
+    async refreshPosts() {
+      await this.$axios.$get('/api/post').then((data) => {
+        const posts = data;
+        posts.forEach((post) => {
+          if (this.posts.some((item) => item.id === post.id)) {
+            return;
+          }
+          this.posts.unshift(post);
+        });
+      });
     },
   },
 };

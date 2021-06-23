@@ -53,7 +53,7 @@ export default {
       content: '',
       inputRules: [
         (v) => !!v || "Message can't be empty",
-        (v) => v.length <= 160 || 'Maximum lenth is 160 characters',
+        // (v) => v.length <= 160 || 'Maximum length is 160 characters',
       ],
     };
   },
