@@ -97,7 +97,10 @@ export default {
             password: this.registerPassword,
             confirmpassword: this.registerPasswordConfirm,
           })
-          .then(() => (this.loading = false))
+          .then(() => {
+            this.loading = false;
+            this.$toast.success('Account Created!');
+          })
           .finally(() => {
             this.$emit('accountCreated');
           });

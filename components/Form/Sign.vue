@@ -68,7 +68,7 @@ export default {
           })
           .then(() => {
             this.loading = false;
-            this.$toast.success('Logged In !');
+            this.$toast.success('Logged In!');
           });
       }
     },
