@@ -138,10 +138,12 @@ export default {
       }
     },
     async deleteAllUserData() {
-      await this.$axios.$post('api/gdpr', {
-        topic: 'gdpr_topic',
-        message: this.sub,
-      });
+      await this.$axios
+        .$post('api/gdpr', {
+          topic: 'gdpr_topic',
+          message: this.sub,
+        })
+        .then(() => this.$auth.logout('identityServer'));
     },
     cancelUpdateProfile() {
       Object.assign(this.profile, this._beforeEditingCache);
