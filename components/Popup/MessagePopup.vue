@@ -60,22 +60,39 @@ export default {
   methods: {
     submit() {
       if (this.$refs.messageForm.validate()) {
-        const extractedToken = this.$auth.strategy.token
-          .get('identityServer')
-          .split(' ');
-        const token = jwt.decode(extractedToken[1]);
-        this.$axios
-          .$post('/api/post', {
-            userId: token.sub,
-            username: token.preferred_username,
-            postContent: this.content,
-          })
-          .then(() => {
-            this.$emit('MessagePosted');
-            this.newMessageDialog = false;
-          });
-        this.$refs.messageForm.reset();
+        this.checkMessageForBadWords(this.content);
       }
+    },
+    checkMessageForBadWords(content) {
+      this.$axios
+        .$post('https://lifelink.azurewebsites.net/api/HttpTrigger', {
+          message: content,
+        })
+        .then((data) => {
+          this.postMessage(data);
+        })
+        .catch(() => this.$toast.error('No message content was empty!'));
+    },
+    async postMessage(cleanContent) {
+      const token = this.getTokenInfo();
+      await this.$axios
+        .$post('/api/post', {
+          userId: token.sub,
+          username: token.preferred_username,
+          postContent: cleanContent,
+        })
+        .then(() => {
+          this.$emit('MessagePosted');
+          this.newMessageDialog = false;
+        });
+      this.$refs.messageForm.reset();
+    },
+    getTokenInfo() {
+      const extractedToken = this.$auth.strategy.token
+        .get('identityServer')
+        .split(' ');
+      const token = jwt.decode(extractedToken[1]);
+      return token;
     },
   },
 };
