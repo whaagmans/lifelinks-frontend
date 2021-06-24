@@ -45,7 +45,11 @@
                       <v-btn color="blue darken-2" class="mr-1 mb-5">
                         Request your account information
                       </v-btn>
-                      <v-btn color="red darken-2" class="mr-1">
+                      <v-btn
+                        color="red darken-2"
+                        class="mr-1"
+                        @click="deleteAllUserData"
+                      >
                         Delete all account data
                       </v-btn>
                     </div>
@@ -132,6 +136,12 @@ export default {
           });
         this.$auth.fetchUser();
       }
+    },
+    async deleteAllUserData() {
+      await this.$axios.$post('api/gdpr', {
+        topic: 'gdpr_topic',
+        message: this.sub,
+      });
     },
     cancelUpdateProfile() {
       Object.assign(this.profile, this._beforeEditingCache);
